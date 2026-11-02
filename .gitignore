@@ -1,0 +1,18 @@
+# Build outputs and cache
+.gradle/
+build/
+out/
+distributions/
+*.zip
+.codex/
+.kotlin/
+.intellijPlatform/
+
+# IDE files
+*.iml
+.idea/
+
+# Local OS & scripts
+.DS_Store
+Thumbs.db
+*.log

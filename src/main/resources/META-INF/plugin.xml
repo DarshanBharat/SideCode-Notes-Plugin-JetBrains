@@ -1,0 +1,78 @@
+<!-- Plugin Configuration File. Read more: https://plugins.jetbrains.com/docs/intellij/plugin-configuration-file.html -->
+<idea-plugin>
+    <id>com.darshan.notes</id>
+    <name>SideCode Notes - Sidebar Markdown Notes &amp; Checklists</name>
+    <version>1.0.0</version>
+    <vendor email="contact@darshan-bharat.com">Darshan Bharat</vendor>
+    <idea-version since-build="242"/>
+
+    <description><![CDATA[
+    <h2>SideCode Notes: Apple Notes &amp; Google Keep for JetBrains IDEs</h2>
+    <p>
+        <b>SideCode Notes</b> is a fast, beautiful, and distraction-free note-taking companion docked in your IDE sidebar. 
+        Jot down ideas, track task checklists, and capture code snippets without ever leaving your editor.
+    </p>
+
+    <h3>✨ Key Features</h3>
+    <ul>
+        <li><b>Sidebar &amp; Central Editor:</b> Edit notes right inside the compact tool window, or hit <i>Open in Editor</i> to write in a full-sized central tab with live, instantaneous two-way sync.</li>
+        <li><b>Keep &amp; Apple Notes Aesthetics:</b> Pin key notes to the top, color-code cards with soft pastel palettes, and organize with instant <code>#tags</code>.</li>
+        <li><b>Interactive Checklists:</b> Insert task items directly alongside text. Click circles to check off items seamlessly.</li>
+        <li><b>Instant Code Snippet Capture:</b> Right-click any selection in the code editor and choose <i>"Add Selection to Notes"</i> to save a reference-linked Markdown note.</li>
+        <li><b>Rich Formatting Toolbar:</b> Format with Bold, Italic, Underline, Strikethrough, Highlight markers, Monospace code, custom font sizes (6–200 pt), and timestamps.</li>
+        <li><b>Multi-Word Search &amp; Scope Filtering:</b> Lightning-fast search by keywords, tags, or pinned status. Easily toggle between <b>Project</b>-specific notes and <b>Global</b> notes available across all your projects.</li>
+        <li><b>Local-First &amp; Git-Friendly:</b> Your notes are 100% yours. Stored locally as standard <code>.md</code> Markdown files with atomic saves and safe trash recovery. No cloud, no logins, no telemetry.</li>
+    </ul>
+
+    <h3>📁 Storage Locations</h3>
+    <ul>
+        <li><b>Project Scope:</b> <code>.idea/notes/</code> (or <code>.notes/</code>)</li>
+        <li><b>Global Scope:</b> <code>~/.pycharm-notes/</code></li>
+        <li><b>Trash Recovery:</b> <code>.trash/</code> inside the corresponding directory</li>
+    </ul>
+    ]]></description>
+
+    <change-notes><![CDATA[
+    <h3>1.0.0</h3>
+    <ul>
+        <li>Initial release of <b>SideCode Notes</b> for PyCharm and JetBrains IDEs (2024.2+).</li>
+        <li>Docked right tool window scratchpad with Apple Notes and Google Keep styling.</li>
+        <li>Instant two-way live editing between sidebar and full-size central editor tabs.</li>
+        <li>Rich formatting toolbar: Bold, Italic, Underline, Strike, Highlighting, Font sizing (6–200 pt), and Monospace.</li>
+        <li>Interactive task checklists with click-to-toggle support.</li>
+        <li>Right-click "Add Selection to Notes" for quick code snippet capture with file & line reference.</li>
+        <li>Multi-word search, tag filtering, and Project vs. Global note scoping.</li>
+        <li>100% local-first Markdown storage (.md) with atomic saves and trash retention.</li>
+    </ul>
+    ]]></change-notes>
+
+    <depends>com.intellij.modules.platform</depends>
+
+    <extensions defaultExtensionNs="com.intellij">
+        <fileEditorProvider implementation="com.pynotes.editor.NoteEditorProvider"/>
+        <toolWindow id="Notes"
+                    secondary="false"
+                    anchor="right"
+                    factoryClass="com.pynotes.ui.NotesToolWindowFactory"
+                    icon="/icons/notes.svg"/>
+    </extensions>
+
+    <actions>
+        <action id="com.pynotes.AddSelectionToNote"
+                class="com.pynotes.actions.AddSelectionToNoteAction"
+                text="Add Selection to Notes"
+                description="Creates a new note containing the selected code snippet"
+                icon="/icons/notes.svg">
+            <add-to-group group-id="EditorPopupMenu" anchor="last"/>
+        </action>
+
+        <action id="com.pynotes.NewQuickNote"
+                class="com.pynotes.actions.NewQuickNoteAction"
+                text="New Quick Note"
+                description="Creates a new note in the Notes sidecar"
+                icon="/icons/notes.svg">
+            <add-to-group group-id="ToolsMenu" anchor="last"/>
+            <keyboard-shortcut keymap="$default" first-keystroke="ctrl alt N"/>
+        </action>
+    </actions>
+</idea-plugin>
